@@ -1,0 +1,141 @@
+<html>
+    <header>
+        <title>Lennyyyyy</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <script>
+            //Das ist Javascript
+            
+            buttonClasses = ['btn-danger', 'btn-warning', 'btn-success'];
+            buttonDefaultClass = 'btn-outline-secondary';
+            function lennartStinktWirklich() {
+                console.log("STinkistinkistinki");
+
+                var request = new XMLHttpRequest();
+
+                request.open("POST", '/Button');
+                request.addEventListener('load', function(event) {
+                if (request.status >= 200 && request.status < 300) {
+                    console.log("Hab was bekommen");
+                    console.log(request.responseText);
+                } else {
+                    console.warn(request.statusText, request.responseText);
+                }
+                });
+                request.send();
+                console.log("Hab was geschickt");
+            }
+
+            function findeDieKlasse(cssClass) {
+                return buttonClasses.includes(cssClass);
+            }
+
+            function ParameterOptionClick() {
+                // Status des Buttons der nach dem ersten Klick eintreten soll
+                var stateAfterFirstClick = 0;
+                // Typ-Änderung von DOMTokenList auf Array
+                var classArray = [...event.target.classList];
+                // Aktuelle CSS Klasse für den Status des Buttons
+                var currentState = classArray.find(findeDieKlasse);
+
+                // Index des nächsten Status ermitteln
+                var nextIndex = buttonClasses.indexOf(currentState) + 1;
+                if (nextIndex > buttonClasses.length - 1)
+                    nextIndex = 0;
+
+                var nextState;
+                // Wenn es der erste Klick ist
+                if(currentState == null) 
+                    nextState = buttonClasses[stateAfterFirstClick];
+                // Wenn nicht der erste Klick
+                else
+                    nextState = buttonClasses[nextIndex];
+
+                // Update den Button
+                event.target.value = nextIndex;
+                event.target.classList.remove(buttonDefaultClass);
+                event.target.classList.remove(currentState);
+                event.target.classList.add(nextState);
+            }
+
+            // function InputButtonClick() {
+            //     var nextIndex = parseInt(event.target.value) + 1;
+            //     if (nextIndex > buttonClasses.length - 1)
+            //         nextIndex = 0;
+            //     event.target.value = nextIndex;
+
+            //     var currentState = [...event.target.classList]
+            //         .find(cssClass => buttonClasses.includes(cssClass));
+            //     var nextState = !currentState ? 'red' : buttonClasses[nextIndex];
+                
+            //     event.target.classList.remove(currentState);
+            //     event.target.classList.add(nextState);
+            // }
+
+        </script>
+        <style>
+            .green {
+                background-color: green;
+            }
+
+            .yellow {
+                background-color: yellow;
+            }
+
+            .red {
+                background-color: red;
+            }
+
+            /* .ParameterOption {
+                border: 1px solid black;
+            } */
+        </style>
+    </header>
+    <body>
+        <!-- Hier ist eine Überschrift -->
+        <h1>LENNART STINKT</h1>
+
+        <!-- Geile Buttons 
+        <div style="margin: 20px;">
+            <button class="btn btn-success" onclick="lennartStinktWirklich()" style="margin: 20px;">Ich stimme zu</button>
+            <button class="btn btn-danger">Hier ist auch einer</button>
+        </div>
+
+        <!--
+        <form action="POST">
+            <label for="MeinTextInput">Mein geiler Text Input</label>
+            <input name="MeinTextInput" type="text">
+
+            <input type="submit" value="Submit">
+        </form>
+        -->
+
+        <form action="/Button">
+            <!-- <button type="button" onclick="InputButtonClick()" value="0" class="red">Test</button> -->
+            
+            <div class="input-group mb-3">
+                <span class="input-group-text">Parameter1</span>
+                <button type="button" onclick="ParameterOptionClick()" class="ParameterOption btn btn-outline-secondary" value="-1">ParameterOption1</button>
+                <button type="button" onclick="ParameterOptionClick()" class="ParameterOption btn btn-outline-secondary" value="-1">ParameterOption2</button>
+                <button type="button" onclick="ParameterOptionClick()" class="ParameterOption btn btn-outline-secondary" value="-1">ParameterOption3</button>
+                <button type="button" onclick="ParameterOptionClick()" class="ParameterOption btn btn-outline-secondary" value="-1">ParameterOption4</button>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Parameter2</span>
+                <button type="button" onclick="ParameterOptionClick()" class="ParameterOption btn btn-outline-secondary" value="-1">ParameterOption1</button>
+                <button type="button" onclick="ParameterOptionClick()" class="ParameterOption btn btn-outline-secondary" value="-1">ParameterOption2</button>
+                <button type="button" onclick="ParameterOptionClick()" class="ParameterOption btn btn-outline-secondary" value="-1">ParameterOption3</button>
+                <button type="button" onclick="ParameterOptionClick()" class="ParameterOption btn btn-outline-secondary" value="-1">ParameterOption4</button>
+            </div>
+            
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+        <ul>
+            <li>Nummer1</li>
+            <li>Nummer2</li>
+        </ul>
+    </body>
+</html>
